@@ -1,22 +1,24 @@
 package com.sportshoes.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sportshoes.models.User;
 import com.sportshoes.repositories.UserRepo;
 
 @RestController
-public class UserController {
+public class AdminController {
+
     @Autowired
     UserRepo repo;
 
-    @PostMapping("user/signup")
-    public User register(User user)
+    @GetMapping("/admin/users")
+    public List<User> getUsers()
     {
-        repo.save(user);
-        return user;
-
+        List<User> users = repo.findAll();
+        return users;
     }
 }
