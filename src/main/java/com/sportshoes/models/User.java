@@ -1,8 +1,17 @@
 package com.sportshoes.models;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class User {
+    @Id
     private int id;
     private String name;
     private String password;
+
+    public User() {
+    }
 
     public User(int id, String name, String password) {
         this.id = id;
