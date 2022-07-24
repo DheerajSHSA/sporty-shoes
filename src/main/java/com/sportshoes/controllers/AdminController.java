@@ -1,6 +1,7 @@
 package com.sportshoes.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sportshoes.models.Product;
+import com.sportshoes.models.PurchaseReport;
 import com.sportshoes.models.User;
 import com.sportshoes.repositories.ProductRepo;
+import com.sportshoes.repositories.PurchaseRepo;
 import com.sportshoes.repositories.UserRepo;
 
 @RestController
@@ -21,6 +24,15 @@ public class AdminController {
 
     @Autowired
     ProductRepo prepo;
+
+    @Autowired
+    PurchaseRepo pcrepo;
+
+    @GetMapping("/admin/user/{userid}")
+    public Optional<User> getUserById(@RequestParam("userid") int id)
+    { 
+        return repo.findById(id);
+    }
 
     @GetMapping("/admin/users")
     public List<User> getUsers() {
@@ -44,4 +56,11 @@ public class AdminController {
     {
         return prepo.findAllByCategory(category);
     }
+
+    @GetMapping("/admin/purchasereport")
+    public List<PurchaseReport> getPurchaseReport()
+    {
+        return pcrepo.findAll();
+    }
+
 }

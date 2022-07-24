@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sportshoes.models.Product;
-import com.sportshoes.models.Purchase;
+import com.sportshoes.models.PurchaseReport;
 import com.sportshoes.models.User;
 import com.sportshoes.repositories.PurchaseRepo;
 import com.sportshoes.repositories.UserRepo;
@@ -26,16 +25,14 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("user/purchase")
-    public Purchase buy(@RequestParam("uid") int uid, @RequestParam("pid") int pid, Purchase purchase)
-    {
-        User user = new User();
-        Product product = new Product();
-        user.setId(uid);
-        product.setId(pid);
-        purchase.setUser(user);
-        purchase.setProduct(product);
-        pcrepo.save(purchase);
-        return purchase;
+    @PostMapping("user/{userid}/buy/{productid}")
+    public String buy( @RequestParam("userid") int userid , @RequestParam("productid") int productid )
+    {   
+        PurchaseReport purchaseReport = new PurchaseReport();
+        purchaseReport.setUserid(userid);
+        purchaseReport.setProductid(productid);
+        purchaseReport.setDateofpurchase(java.time.LocalDate.now().toString());
+        pcrepo.save(purchaseReport);
+        return purchaseReport.toString();
     }
 }
