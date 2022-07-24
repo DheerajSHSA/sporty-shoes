@@ -1,5 +1,6 @@
 package com.sportshoes.controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,4 +64,9 @@ public class AdminController {
         return pcrepo.findAll();
     }
 
+    @GetMapping("/admin/purchasereportbydate/{date}")
+    public List<PurchaseReport> getPurchaseReportByDate(@RequestParam("date") String date)
+    {
+        return pcrepo.findAllByDateofpurchase(date);
+    }
 }
